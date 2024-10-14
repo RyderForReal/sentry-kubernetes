@@ -3,6 +3,9 @@ prefix:
 # Set this to true to support IPV6 networks
 ipv6: false
 
+# If you are using a Kubernetes cluster domain other than cluster.local, change it here.
+clusterDomain: &clusterDomain cluster.local
+
 user:
   create: true
   email: admin@sentry.local
@@ -1898,6 +1901,7 @@ config:
 
 clickhouse:
   enabled: true
+  clusterDomain: *clusterDomain
   clickhouse:
     replicas: "1"
     imageVersion: "21.8.13.6"
@@ -1965,6 +1969,7 @@ externalClickhouse:
 # See https://github.com/bitnami/charts/tree/master/bitnami/zookeeper
 zookeeper:
   enabled: true
+  clusterDomain: *clusterDomain
   nameOverride: zookeeper-clickhouse
   replicaCount: 1
   ## When increasing the number of exceptions, you need to increase persistence.size
@@ -1975,6 +1980,7 @@ zookeeper:
 # See https://github.com/bitnami/charts/tree/master/bitnami/kafka
 kafka:
   enabled: true
+  clusterDomain: *clusterDomain
   provisioning:
     ## Increasing the replicationFactor enhances data reliability during Kafka pod failures by replicating data across multiple brokers.
     # replicationFactor: 1
@@ -2133,6 +2139,7 @@ sourcemaps:
 
 redis:
   enabled: true
+  clusterDomain: *clusterDomain
   replica:
     replicaCount: 1
   auth:
@@ -2220,6 +2227,7 @@ externalPostgresql:
 rabbitmq:
   ## If disabled, Redis will be used instead as the broker.
   enabled: true
+  clusterDomain: *clusterDomain
   vhost: /
   clustering:
     forceBoot: true
